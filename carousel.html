@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Carousel</title>
+</head>
+<style>
+  body {
+    background-color: #8F57FD;
+    margin: 0;
+    font-family: 'Muli', sans-serif;
+  }
+
+  .header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header__img {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 200px;
+  }
+
+  .header__menu {
+    margin-right: 30px;
+  }
+
+  .header__menu ul {
+    display: none;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    width: 100px;
+    text-align: right;
+    margin: 0 0 0 -14px;
+  }
+
+  .header__menu:hover ul,
+  ul:hover {
+    display: block;
+  }
+
+  .header__menu li {
+    margin: 10px 0;
+  }
+
+  .header__menu li a {
+    color: #FFF;
+    text-decoration: none;
+  }
+
+  .header__menu li a:hover {
+    text-decoration: underline;
+  }
+
+  .header__menu--profile {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .header__menu--profile img {
+    margin-right: 8px;
+    width: 40px;
+  }
+
+  .header__menu--profile p {
+    margin: 0;
+    color: #FFF;
+  }
+
+  .searcher {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+  }
+
+  .searcher__title {
+    color: #FFF;
+    font-size: 25px;
+  }
+
+  .input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #FFF;
+    border-radius: 30px;
+    color: #FFF;
+    font-family: 'Muli', sans-serif;
+    font-size: 16px;
+    height: 50px;
+    padding: 0 20px;
+    width: 70%;
+    outline: none;
+  }
+
+  ::placeholder {
+    color: #FFF;
+  }
+
+  .categories__title {
+    color: #FFF;
+    font-size: 16px;
+    position: absolute;
+    padding-left: 30px;
+    width: 100%;
+  }
+
+  .carousel {
+    overflow: scroll;
+    width: 100%;
+    padding: 30px;
+    position: relative;
+  }
+
+  .carousel__container {
+    white-space: nowrap;
+    margin: 70px 0;
+    padding-bottom: 10px;
+  }
+
+  .carousel-item {
+    background-color: palevioletred;
+    width: 200px;
+    height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    transition: 450ms;
+    transform-origin: center left;
+    position: relative;
+  }
+
+  .carousel-item:hover~.carousel-item {
+    transform: translate3d(100px, 0, 0);
+  }
+
+  .carousel__container:hover .carousel-item {
+    opacity: 0.3;
+  }
+
+  .carousel__container:hover .carousel-item:hover {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  .carousel-item__img {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .carousel-item__details {
+    color: #FFF;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    font-size: 10px;
+    opacity: 0;
+    transition: 450ms opacity;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .carousel-item__details:hover {
+    opacity: 1;
+  }
+
+  .carousel-item__details img {
+    width: 40px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+  }
+
+  .footer a {
+    color: #FFF;
+    cursor: pointer;
+    font-family: 'Muli', sans-serif;
+    font-size: 14px;
+    padding-left: 30px;
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .login__container {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    .footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
+
+<body>
+
+  <header class="header">
+    <img class="header__img" src="./assets/logo-platzi-video-BW2.png">
+    <div class="header__menu">
+      <div class="header__menu--profile">
+        <img src="./assets/icons8-male-user-50.png" alt="User image profile">
+        <p>Perfil</p>
+      </div>
+      <ul>
+        <li><a href="/">Cuenta</a></li>
+        <li><a href="/">Cerrar sesion</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="searcher">
+    <h2 class="searcher__title">Que quieres ver hoy?</h2>
+    <input class="input" type="text" placeholder="Buscar...">
+  </section>
+
+  <h2 class="categories__title">
+    Mi lista
+  </h2>
+  <section class="carousel">
+    <div class="carousel__container">
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/pexels-photo-3224164.jpeg" alt="balls on the tree">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/little-girl-checking-on-a-christmas-tree-3154302.jpg"
+          alt="Little Girl Checking on a christmas tree">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/christmas-cookies-on-tray-3370704.jpg"
+          alt="Christmas cookies on tray">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/plate-with-food-1927314.jpg" alt="Plate with food">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img"
+          src="./assets/carousel/man-in-white-long-sleeved-shirt-and-brown-pants-1953451.jpg"
+          alt="man in white long sleeved shirt and brown pants">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/man-reading-a-newspaper-3393375.jpg"
+          alt="man reading a newspaper">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/chairs-furniture-indoors-interior-design-245535.jpg"
+          alt="chairs furniture indoors interior design">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/photo-of-building-exterior-during-night-3381028.jpg"
+          alt="photo of building exterior during night.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/black-sedan-parked-under-tree-1841120.jpg"
+          alt="black sedan parked under tree.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/green-leafed-plant-2318555.jpg"
+          alt="green leafed plant.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="categories__title">
+    Lo nuevo
+  </h2>
+  <section class="carousel">
+    <div class="carousel__container">
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/green-leafed-plant-2318555.jpg"
+          alt="green leafed plant.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/black-sedan-parked-under-tree-1841120.jpg"
+          alt="black sedan parked under tree.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/christmas-cookies-on-tray-3370704.jpg"
+          alt="Christmas cookies on tray">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/photo-of-building-exterior-during-night-3381028.jpg"
+          alt="photo of building exterior during night.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img"
+          src="./assets/carousel/man-in-white-long-sleeved-shirt-and-brown-pants-1953451.jpg"
+          alt="man in white long sleeved shirt and brown pants">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/man-reading-a-newspaper-3393375.jpg"
+          alt="man reading a newspaper">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/chairs-furniture-indoors-interior-design-245535.jpg"
+          alt="chairs furniture indoors interior design">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="categories__title">
+    Mas reciente
+  </h2>
+  <section class="carousel">
+    <div class="carousel__container">
+
+      <div class="carousel-item">
+        <img class="carousel-item__img"
+          src="./assets/carousel/man-in-white-long-sleeved-shirt-and-brown-pants-1953451.jpg"
+          alt="man in white long sleeved shirt and brown pants">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/black-sedan-parked-under-tree-1841120.jpg"
+          alt="black sedan parked under tree.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/christmas-cookies-on-tray-3370704.jpg"
+          alt="Christmas cookies on tray">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/green-leafed-plant-2318555.jpg"
+          alt="green leafed plant.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/photo-of-building-exterior-during-night-3381028.jpg"
+          alt="photo of building exterior during night.jpg">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/man-reading-a-newspaper-3393375.jpg"
+          alt="man reading a newspaper">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img class="carousel-item__img" src="./assets/carousel/chairs-furniture-indoors-interior-design-245535.jpg"
+          alt="chairs furniture indoors interior design">
+        <div class="carousel-item__details">
+          <div>
+            <img src="./assets/icons8-play-64.png" alt="Play">
+            <img src="./assets/icons8-plus-64.png" alt="Plus">
+          </div>
+          <p class="carousel-item__details--title">Titulo descriptivo</p>
+          <p class="carousel-item__details--subtitle">2019 16+ 114 minutos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a href="/">Terminos de uso</a>
+    <a href="/">Declaracion de privacidad</a>
+    <a href="/">Centro de ayuda</a>
+  </footer>
+</body>
+
+</html>

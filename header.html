@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+  <title>Header</title>
+</head>
+<style>
+  body {
+    background-color: #8F57FD;
+    margin: 0;
+    font-family: 'Muli', sans-serif;
+  }
+
+  .header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header__img {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 200px;
+  }
+
+  .header__menu {
+    margin-right: 30px;
+  }
+
+  .header__menu ul {
+    display: none;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    width: 100px;
+    text-align: right;
+    margin: 0 0 0 -14px;
+  }
+
+  .header__menu:hover ul,
+  ul:hover {
+    display: block;
+  }
+
+  .header__menu li {
+    margin: 10px 0;
+  }
+
+  .header__menu li a {
+    color: #FFF;
+    text-decoration: none;
+  }
+
+  .header__menu li a:hover {
+    text-decoration: underline;
+  }
+
+  .header__menu--profile {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .header__menu--profile img {
+    margin-right: 8px;
+    width: 40px;
+  }
+
+  .header__menu--profile p {
+    margin: 0;
+    color: #FFF;
+  }
+
+  .searcher {
+    height: 300px;
+  }
+
+  .searcher__title {
+    color: #FFF;
+    font-size: 25px;
+  }
+
+  .input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #FFF;
+    border-radius: 30px;
+    color: #FFF;
+    font-family: 'Muli', sans-serif;
+    font-size: 16px;
+    height: 50px;
+    padding: 0 20px;
+    width: 70%;
+    outline: none;
+  }
+  ::placeholder {
+    color: #FFF;
+  }
+</style>
+
+<body>
+  <header class="header">
+    <img class="header__img" src="./logo-platzi-video-BW2.png">
+    <div class="header__menu">
+      <div class="header__menu--profile">
+        <img src="./icons8-male-user-50.png" alt="User image profile">
+        <p>Perfil</p>
+      </div>
+      <ul>
+        <li><a href="/">Cuenta</a></li>
+        <li><a href="/">Cerrar sesion</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="searcher">
+    <h2 class="searcher__title">Que quieres ver hoy?</h2>
+    <input class="input" type="text" placeholder="Buscar...">
+  </section>
+</body>
+
+</html>
